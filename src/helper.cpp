@@ -1,3 +1,14 @@
+/*
+ * helper.cpp
+ *
+ *  Created on: Aug 26, 2024
+ *  Last modified: Aug 26, 2024
+ *  Version 1: Init
+ *  Author: Minh Tri
+ */
+
+//HELPER FUNCTIONS//
+
 #include "print.h"
 
 ///Pin setup///

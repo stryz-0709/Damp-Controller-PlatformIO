@@ -1,3 +1,14 @@
+/*
+ * control.cpp
+ *
+ *  Created on: Aug 26, 2024
+ *  Last modified: Sep 9, 2024
+ *  Version 3: Remove Automatic gate control
+ *  Author: Minh Tri
+ */
+
+///GATE CONTROL - OPEN, CLOSE & FORCE_CLOSE///
+
 #include "control.h"
 
 ////Controlling gate////

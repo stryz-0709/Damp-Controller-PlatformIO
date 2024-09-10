@@ -1,3 +1,15 @@
+/*
+ * helper.h
+ *
+ *  Created on: Aug 26, 2024
+ *  Last modified: Aug 26, 2024
+ *  Version 1: Init
+ *  Author: Minh Tri
+ */
+
+//HELPER FUNCTIONS//
+
+
 #ifndef INC_HELPER_H_
 #define INC_HELPER_H_
 

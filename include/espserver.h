@@ -1,3 +1,13 @@
+/*
+ * espserver.h
+ *
+ *  Created on: Aug 26, 2024
+ *  Last modified: Sep 9, 2024
+ *  Version 3: Merge functions of ESP1 & ESP2
+ *  Author: Minh Tri
+ */
+
+//AP, ESP_NOW & SERVER SETUP//
 
 #ifndef INC_ESPSERVER_H_
 #define INC_ESPSERVER_H_

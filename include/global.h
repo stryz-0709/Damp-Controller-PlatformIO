@@ -1,3 +1,14 @@
+/*
+ * global.h
+ *
+ *  Created on: Aug 26, 2024
+ *  Last modified: Sep 9, 2024
+ *  Version 2: Added EEPROM
+ *  Author: Minh Tri
+ */
+
+//GLOBAL VARIABLES INITIALIZATIONS//
+
 #ifndef INC_GLOBAL_H_
 #define INC_GLOBAL_H_
 

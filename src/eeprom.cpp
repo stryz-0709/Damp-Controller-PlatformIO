@@ -1,3 +1,14 @@
+/*
+ * eeprom.cpp
+ *
+ *  Created on: Sep 9, 2024
+ *  Last modified: Sep 9, 2024
+ *  Version 1: Init
+ *  Author: Minh Tri
+ */
+
+//USING EEPROM TO SAVE ESP32 VALUE//
+
 #include "eeprom.h"
 
 void eepromSetup(){

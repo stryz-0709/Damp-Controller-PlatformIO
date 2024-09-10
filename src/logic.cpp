@@ -1,3 +1,15 @@
+/*
+ * logic.cpp
+ *
+ *  Created on: Aug 26, 2024
+ *  Last modified: Aug 26, 2024
+ *  Version 1: Init
+ *  Author: Minh Tri
+ */
+
+//LOGIC FOR BUTTONS AND GATE//
+
+
 #include "logic.h"
 
 void buttonLogic(){

@@ -1,3 +1,14 @@
+/*
+ * print.cpp
+ *
+ *  Created on: Aug 26, 2024
+ *  Last modified: Aug 26, 2024
+ *  Version 1: Init
+ *  Author: Minh Tri
+ */
+
+//PRINT FOR DEBUGGING//
+
 #include "print.h"
 
 ///Debug///

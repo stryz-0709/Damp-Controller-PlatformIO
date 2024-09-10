@@ -1,3 +1,14 @@
+/*
+ * global.cpp
+ *
+ *  Created on: Aug 26, 2024
+ *  Last modified: Sep 9, 2024
+ *  Version 2: Added EEPROM
+ *  Author: Minh Tri
+ */
+
+//GLOBAL VARIABLES INITIALIZATIONS//
+
 #include "global.h"
 
 int IN_PINS[7] = { IN1, IN2, IN3, IN4, IN5, IN6, IN7 };

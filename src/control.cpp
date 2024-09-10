@@ -1,0 +1,62 @@
+#include "control.h"
+
+////Controlling gate////
+
+void closingGate(){
+  if (isBot){
+    gateStatus = "STOPPED";
+    return;
+  }
+  // Serial.println("CLOSING GATE");
+  digitalWrite(VALVE_UP, HIGH);
+  if (bot_val) {
+    if (!closingPhase) prevBotMillis = millis();
+    closingPhase = true;
+  } 
+  else if (!closingPhase) {
+    if (motorStatus == "OFF") activateMotor();
+    else if (motorStatus == "DELAY" && millis() - motorDelayMillis >= motorOnInterval) {
+      Serial.println("RELAY ACTIVATED");
+      digitalWrite(VALVE_DOWN, LOW);
+      motorStatus = "ACTIVE";
+    }
+    else if (motorStatus == "ACTIVE") digitalWrite(VALVE_DOWN, LOW);
+  }
+}
+
+void openingGate(String mode) {
+  digitalWrite(VALVE_DOWN, HIGH);
+  ///If gate touches top switch///
+  if (top_val) {
+    digitalWrite(VALVE_UP, HIGH);
+    if (motorStatus == "ACTIVE") activateStandby();
+  }
+
+  ///Force close in MANUAL mode///
+  if ((gateStatus == "GET_WATER" && inLevel >= outLevel) || (gateStatus == "REMOVE_WATER" && inLevel <= outLevel)){
+    gateStatus = "FORCE_CLOSE";
+    closingGate();
+    return;
+  }
+
+  ///If motor is not active///
+  if (motorStatus == "OFF" && !top_val) activateMotor();
+  else if (motorStatus == "DELAY" && (millis() - motorDelayMillis >= motorOnInterval)) {
+    Serial.println("RELAY ACTIVATED");
+    digitalWrite(VALVE_UP, LOW);
+    motorStatus = "ACTIVE";
+    isBot = 0;
+  }
+  else if (motorStatus == "ACTIVE") digitalWrite(VALVE_UP, LOW);
+  sendLedInfo((mode == "GET_WATER")? 1 : (mode == "REMOVE_WATER")? 2 : 0);
+}
+
+void forceClose(){
+  Serial.println("VALVE_DOWN STOPPED");
+  gateStatus = "STOPPED";
+  digitalWrite(VALVE_DOWN, HIGH);
+  closingPhase = false;
+  activateStandby();
+  sendLedInfo(3);
+  isBot = 1;
+}

@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "server.h": "c",
+        "httpclient.h": "c",
+        "wifi.h": "c",
+        "wifiespnow.h": "c",
+        "arduinohttpclient.h": "c",
+        "cmath": "cpp"
+    }
+}

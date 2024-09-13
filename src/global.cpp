@@ -85,7 +85,7 @@ int water1Count = 0;
 int water2Count = 0;
 int gateCount = 0;
 
-String gateStatus = "STOPPED"; //STOPPED, OPENING, CLOSING, GET_WATER, REMOVE_WATER, STANDBY, FORCE_CLOSE
+String gateStatus = "FORCE_CLOSE"; //STOPPED, GET_WATER, REMOVE_WATER, FORCE_CLOSE
 String gateMode = "MANUAL"; //MANUAL, END, DEBUG
 String motorStatus = "OFF"; //OFF, TRIGGERED, DELAY, ACTIVE, STANDBY
 

@@ -15,17 +15,24 @@
 void esp1PinSetup() {
   for (int i = 0; i < 5; i++) pinMode(SWITCHES[i], INPUT_PULLDOWN);
   for (int i = 0; i < 7; i++) pinMode(OUT_PINS[i], INPUT_PULLDOWN);
-  for (int i = 0; i < 3; i++){
-    pinMode(OUTPUTS[i], OUTPUT);
-    digitalWrite(OUTPUTS[i], HIGH);
+  for (int i = 0; i < 4; i++){
+    pinMode(ESP1_OUTPUTS[i], OUTPUT);
+
+    //TURN OFF ALL RELAYS (ACTIVE = LOW)
+    digitalWrite(ESP1_OUTPUTS[i], HIGH);
   }
 }
 
 void esp2PinSetup(){
   for (int i = 0; i < 7; i++) pinMode(IN_PINS[i], INPUT_PULLDOWN);
-  pinMode(GET_WATER_LED, OUTPUT);
-  pinMode(REMOVE_WATER_LED, OUTPUT);
-  pinMode(START_BUTTON, OUTPUT);
+  for (int i = 0; i < 4; i++) pinMode(ESP2_OUTPUTS[i], OUTPUT);
+  //TURN OFF ALL LEDS
+  digitalWrite(GET_WATER_LED, LOW);
+  digitalWrite(REMOVE_WATER_LED, LOW);
+
+  //RELAYS (ACTIVE = LOW)
+  digitalWrite(START_BUTTON, LOW);
+  digitalWrite(TOWER_LED, HIGH);
 }
 
 bool isNumber(String payload) {

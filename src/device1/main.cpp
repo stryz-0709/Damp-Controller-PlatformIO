@@ -7,17 +7,17 @@ void setup() {
   Serial.begin(115200);
   esp1PinSetup();
   eepromSetup();
-  apEspSetup("Cổng 1", 192, 168, 1, 1, esp2, WIFI_AP_STA, true);
+  apEspSetup(esp2Mac, WIFI_AP_STA);
   serverSetup(server);
 }
 
 void loop() {
+  ArduinoOTA.handle();
   unsigned long currentMillis = millis();
   //// Water level////
   if (currentMillis - prevWaterMillis >= waterInterval){
     prevWaterMillis = currentMillis;
     readWaterLevel(OUT_PINS, outSum, water1Count, outLevel, outMeasured, gateMode, debugOut, true);
-
   }
 
   if (inMeasured && outMeasured){
@@ -51,7 +51,7 @@ void loop() {
   //Force closing////
   if (closingPhase){
     if ((currentMillis - prevBotMillis) >= botInterval) {
-      forceClose();
+      forceStop();
     }
   }
 

@@ -5,6 +5,7 @@
  *  Last modified: Sep 13, 2024
  *  Version 3: Remove Automatic gate control
  *  Version 3.1: Change sendLedInfo parameter from 4 to 0
+ *  Version 3.2: Correctly Rename forceClose to forceStop
  *  Author: Minh Tri
  */
 
@@ -62,7 +63,7 @@ void openingGate(String mode) {
   else if (motorStatus == "ACTIVE") digitalWrite(VALVE_UP, LOW);
 }
 
-void forceClose(){
+void forceStop(){
   Serial.println("VALVE_DOWN STOPPED");
   gateStatus = "STOPPED";
   digitalWrite(VALVE_DOWN, HIGH);

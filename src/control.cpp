@@ -2,8 +2,9 @@
  * control.cpp
  *
  *  Created on: Aug 26, 2024
- *  Last modified: Sep 9, 2024
+ *  Last modified: Sep 13, 2024
  *  Version 3: Remove Automatic gate control
+ *  Version 3.1: Change sendLedInfo parameter from 4 to 0
  *  Author: Minh Tri
  */
 
@@ -59,7 +60,6 @@ void openingGate(String mode) {
     isBot = 0;
   }
   else if (motorStatus == "ACTIVE") digitalWrite(VALVE_UP, LOW);
-  sendLedInfo((mode == "GET_WATER")? 1 : (mode == "REMOVE_WATER")? 2 : 0);
 }
 
 void forceClose(){
@@ -68,6 +68,6 @@ void forceClose(){
   digitalWrite(VALVE_DOWN, HIGH);
   closingPhase = false;
   activateStandby();
-  sendLedInfo(3);
+  sendLedInfo(0); //TURN OFF START_RELAY
   isBot = 1;
 }

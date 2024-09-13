@@ -6,6 +6,7 @@
  *  Version 2: Added EEPROM
  *  Version 3: Added support for ArduinoOTA
  *  Version 3.1: Added global variables for toggling tower led
+ *  Version 3.2: Revert toggling function
  *  Author: Minh Tri
  */
 
@@ -111,7 +112,7 @@ extern const long buttonInterval, waterInterval,
 
 extern unsigned long motorDelayMillis, prevBotMillis;
 
-extern bool closingPhase, outToIn, inToOut, toggleTowerLed;
+extern bool closingPhase, outToIn, inToOut;
 
 extern int outMeasured, inMeasured, h1, h2, top_val, bot_val;
 

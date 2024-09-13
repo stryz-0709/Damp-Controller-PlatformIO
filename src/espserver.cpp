@@ -6,6 +6,7 @@
  *  Version 3: Merge functions of ESP1 & ESP2
  *  Version 4: Added support for ArduinoOTA
  *  Version 4.1: Added logic for toggling tower led
+ *  Version 4.2: Revert toggling function
  *  Author: Minh Tri
  */
 
@@ -37,11 +38,7 @@ void OnEsp2DataRecv(const uint8_t *mac_addr, const uint8_t *incomingData, int le
   digitalWrite(START_BUTTON, dataEsp2.value == 0 ? HIGH : LOW);     
 
   //RELAYS, TOGGLE if value == 1 or 2, else OFF
-  if (dataEsp2.value >= 1) toggleTowerLed = true;
-  else{
-    digitalWrite(TOWER_LED, HIGH);
-    toggleTowerLed = false;
-  } 
+  digitalWrite(TOWER_LED, (dataEsp2.value >= 1)? LOW : HIGH);
 }
 
 

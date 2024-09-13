@@ -5,6 +5,7 @@
  *  Last modified: Sep 13, 2024
  *  Version 1: Init
  *  Version 2: Add logic for toggling tower led
+ *  Version 2.2: Revert toggling function
  *  Author: Minh Tri
  */
 

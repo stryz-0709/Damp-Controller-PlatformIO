@@ -4,6 +4,7 @@
  *  Created on: Aug 26, 2024
  *  Last modified: Aug 26, 2024
  *  Version 1: Init
+ *  Version 2: Add TOWER_LED Pin
  *  Author: Minh Tri
  */
 

@@ -6,6 +6,7 @@
  *  Version 3: Merge functions of ESP1 & ESP2
  *  Version 4: Added support for ArduinoOTA
  *  Version 4.1: Added logic for toggling tower led
+ *  Version 4.2: Revert toggling function
  *  Author: Minh Tri
  */
 

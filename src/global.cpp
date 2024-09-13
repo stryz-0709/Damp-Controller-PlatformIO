@@ -6,6 +6,7 @@
  *  Version 2: Added EEPROM
  *  Version 3: Added support for ArduinoOTA
  *  Version 3.1: Added global variables for toggling tower led
+ *  Version 3.2: Revert toggling function
  *  Author: Minh Tri
  */
 
@@ -70,7 +71,6 @@ const long sendMobileInterval = 1000;
 bool closingPhase = false;
 bool outToIn = false;
 bool inToOut = false;
-bool toggleTowerLed = true;
 
 int outMeasured = 0;
 int inMeasured = 0;

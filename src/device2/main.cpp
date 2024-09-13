@@ -17,10 +17,4 @@ void loop() {
     prevWater2Millis = currentMillis;
     readWaterLevel(IN_PINS, inSum, water2Count, inLevel, outMeasured, gateMode, debugOut, false);
   }
-
-  if (toggleTowerLed){
-    if ((currentMillis - towerToggleMillis) >= towerToggleInterval) 
-      towerToggleMillis = currentMillis;
-      digitalWrite(TOWER_LED, !digitalRead(TOWER_LED));
-  }
 }

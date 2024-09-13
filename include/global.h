@@ -2,8 +2,10 @@
  * global.h
  *
  *  Created on: Aug 26, 2024
- *  Last modified: Sep 9, 2024
+ *  Last modified: Sep 13, 2024
  *  Version 2: Added EEPROM
+ *  Version 3: Added support for ArduinoOTA
+ *  Version 3.1: Added global variables for toggling tower led
  *  Author: Minh Tri
  */
 
@@ -16,6 +18,7 @@
 #include <ArduinoJson.h>
 #include <ArduinoHttpClient.h>
 #include <WiFi.h>
+#include <ArduinoOTA.h>
 #include <AsyncTCP.h>
 #include <ESPAsyncWebServer.h>
 #include <esp_now.h>
@@ -66,6 +69,8 @@
 #define GET_WATER_LED 4
 #define REMOVE_WATER_LED 16
 
+#define TOWER_LED 13
+
 #define START_BUTTON 15
 
 ///MOTOR - OUTPUT//
@@ -84,26 +89,29 @@ extern struct_message dataEsp2;
 
 extern esp_now_peer_info_t peerInfo;
 
-extern int IN_PINS[7], OUT_PINS[7], OUTPUTS[4], SWITCHES[5];
+extern int IN_PINS[7], OUT_PINS[7], ESP1_OUTPUTS[4], ESP2_OUTPUTS[4], SWITCHES[5];
 
 extern String gateStatus, gateMode, motorStatus, errorCode, pendingMessage;
 
 //ESP32 MAC Address///
-extern uint8_t esp1[];
-extern uint8_t esp2[];
+extern uint8_t esp1Mac[];
+extern uint8_t esp2Mac[];
+
+extern IPAddress esp1IP, esp2IP, NMask;
+extern String ssid;
 
 extern AsyncWebServerRequest *pendingRequest;
 
 extern unsigned long prevWaterMillis, prevWater2Millis, prevGateMillis, 
-  motorStandbyMillis, motorTrigMillis, prevButtonMillis, sendMobileMillis;
+  motorStandbyMillis, motorTrigMillis, prevButtonMillis, sendMobileMillis, towerToggleMillis;
 
 extern const long buttonInterval, waterInterval,
   countInterval, gateInterval, motorTrigInterval,
-  motorOnInterval, standByInterval, botInterval, sendMobileInterval; 
+  motorOnInterval, standByInterval, botInterval, sendMobileInterval, towerToggleInterval; 
 
 extern unsigned long motorDelayMillis, prevBotMillis;
 
-extern bool closingPhase, outToIn, inToOut;
+extern bool closingPhase, outToIn, inToOut, toggleTowerLed;
 
 extern int outMeasured, inMeasured, h1, h2, top_val, bot_val;
 
@@ -112,8 +120,6 @@ extern int water1Count, water2Count, gateCount;
 extern int outSum, outLevel, inSum, inLevel, isBot, debugOut, debugIn;
 
 extern int endButton, getWater, removeWater, prevEndButton, prevGetWater, prevRemoveWater;
-
-
 
 
 #endif /* INC_GLOBAL_H_ */

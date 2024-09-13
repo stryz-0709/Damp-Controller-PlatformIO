@@ -2,8 +2,10 @@
  * espserver.h
  *
  *  Created on: Aug 26, 2024
- *  Last modified: Sep 9, 2024
+ *  Last modified: Sep 13, 2024
  *  Version 3: Merge functions of ESP1 & ESP2
+ *  Version 4: Added support for ArduinoOTA
+ *  Version 4.1: Added logic for toggling tower led
  *  Author: Minh Tri
  */
 
@@ -26,7 +28,7 @@ void sendWaterInfo(int value);
 
 void sendToAndroid();
 
-void apEspSetup(String ssid, uint8_t a, uint8_t b, uint8_t c, uint8_t d, uint8_t* peerMac, wifi_mode_t mode, bool isAp) ;
+void apEspSetup(uint8_t* peerMac, wifi_mode_t mode) ;
 
 void serverSetup(AsyncWebServer &server);
 

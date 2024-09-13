@@ -14,7 +14,8 @@
 
 ///Pin setup///
 void esp1PinSetup() {
-  for (int i = 0; i < 5; i++) pinMode(SWITCHES[i], INPUT_PULLDOWN);
+  for (int i = 0; i < 2; i++) pinMode(SWITCHES[i], INPUT_PULLDOWN);
+  for (int i = 0; i < 3; i++) pinMode(BUTTONS[i], INPUT_PULLUP);
   for (int i = 0; i < 7; i++) pinMode(OUT_PINS[i], INPUT_PULLDOWN);
   for (int i = 0; i < 4; i++){
     pinMode(ESP1_OUTPUTS[i], OUTPUT);
@@ -33,7 +34,7 @@ void esp2PinSetup(){
 
   //RELAYS (ACTIVE = LOW)
   digitalWrite(START_BUTTON, LOW);
-  digitalWrite(TOWER_LED, HIGH);
+  digitalWrite(TOWER_LED, LOW);
 }
 
 bool isNumber(String payload) {
@@ -55,9 +56,9 @@ bool readInputs(){
   prevEndButton = endButton;
   prevGetWater = getWater;
   prevRemoveWater = removeWater;
-  endButton = digitalRead(END_BUTTON);
-  getWater = digitalRead(GET_WATER);
-  removeWater = digitalRead(REMOVE_WATER);
+  endButton = !digitalRead(END_BUTTON);
+  getWater = !digitalRead(GET_WATER);
+  removeWater = !digitalRead(REMOVE_WATER);
   top_val = !digitalRead(GATE_TOP);
   bot_val = !digitalRead(GATE_BOTTOM);
 

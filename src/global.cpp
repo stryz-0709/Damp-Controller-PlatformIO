@@ -18,7 +18,9 @@ int IN_PINS[7] = { IN1, IN2, IN3, IN4, IN5, IN6, IN7 };
 int OUT_PINS[7] = { OUT1, OUT2, OUT3, OUT4, OUT5, OUT6, OUT7 };
 
 int ESP1_OUTPUTS[4] = { VALVE_UP, VALVE_DOWN, MOTOR_TRIG, MOTOR };
-int SWITCHES[5] = { GATE_TOP, GATE_BOTTOM, GET_WATER, REMOVE_WATER, END_BUTTON };
+int SWITCHES[2] = { GATE_TOP, GATE_BOTTOM };
+
+int BUTTONS[3] = { GET_WATER, REMOVE_WATER, END_BUTTON };
 
 int ESP2_OUTPUTS[4] = { GET_WATER_LED, REMOVE_WATER_LED, START_BUTTON, TOWER_LED };
 
@@ -34,7 +36,13 @@ struct_message dataEsp2;
 
 IPAddress esp1IP(192, 168, 1, 1);
 IPAddress esp2IP(192, 168, 1, 2);
+
+IPAddress startIP(192, 168, 1, 3);
+IPAddress endIP(192, 168, 1, 5);
+
+
 IPAddress NMask(255, 255, 255, 0);
+
 String ssid = "Cổng 1";
 
 String pendingMessage;
@@ -56,11 +64,14 @@ const long countInterval = 10;   //500ms*10 = 5 seconds
 
 const long gateInterval = 200;  //200ms
 
-const long motorOnInterval = 10000; //Turn on motor for 10 seconds
-const long motorTrigInterval = 3000; 
-const long standByInterval = 180000; ////Standby motor for 3 minutes
+//Trigger -> 3 sec -> Turn on -> 10 sec -> Relay -> Standby -> Turnoff
+const long motorTrigInterval = 3000; //Turn on motor for 3 seconds
+const long motorOnInterval = 10000; //Trigger motor for 10 seconds
+const long standByInterval = 5000; ////Standby motor for 5 seconds
+const long startUpInterval = 180000; ////Start up count for 180 seconds
 unsigned long motorDelayMillis = 0;
 unsigned long motorTrigMillis = 0;
+unsigned long startUpMillis = 0;
 
 unsigned long prevBotMillis = 0;
 const long botInterval = 21000;  ///21s before stopping gate
@@ -71,6 +82,7 @@ const long sendMobileInterval = 1000;
 bool closingPhase = false;
 bool outToIn = false;
 bool inToOut = false;
+bool startUp = true;
 
 int outMeasured = 0;
 int inMeasured = 0;

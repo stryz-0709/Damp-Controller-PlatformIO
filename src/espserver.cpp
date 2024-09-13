@@ -37,8 +37,6 @@ void OnEsp2DataRecv(const uint8_t *mac_addr, const uint8_t *incomingData, int le
   //RELAYS, TURN OFF if value == 4, else ACTIVE
   digitalWrite(START_BUTTON, dataEsp2.value == 0 ? HIGH : LOW);     
 
-  //RELAYS, TOGGLE if value == 1 or 2, else OFF
-  digitalWrite(TOWER_LED, (dataEsp2.value >= 1)? LOW : HIGH);
 }
 
 
@@ -75,6 +73,32 @@ void sendWaterInfo(int value){
   else {}
 }
 
+void recvMsg(uint8_t *data, size_t len){
+  String d = "";
+  for(int i=0; i < len; i++){
+    d += char(data[i]);
+  }
+  WebSerial.println(d);
+  if (d.startsWith("!") && d.endsWith("#")) {
+    String command = d.substring(1, d.length() - 1);
+
+    int separatorIndex = command.indexOf('=');
+    if (separatorIndex != -1) {
+      String parameter = command.substring(0, separatorIndex);
+      String value = command.substring(separatorIndex + 1);
+      
+      if (parameter == "h1") {
+        h1 = value.toInt(); 
+      }
+      else if (parameter == "h2"){
+        h2 = value.toInt();
+      }
+    }
+  }
+}
+
+
+
 ////////////////
 void apEspSetup(uint8_t* peerMac, wifi_mode_t mode) {
   bool isAp = (mode == WIFI_AP_STA);
@@ -95,6 +119,24 @@ void apEspSetup(uint8_t* peerMac, wifi_mode_t mode) {
     IPAddress myIP = WiFi.softAPIP();
     Serial.print("AP IP address: ");
     Serial.println(myIP);
+
+    tcpip_adapter_dhcps_stop(TCPIP_ADAPTER_IF_AP);  // Stop the default DHCP server
+
+    tcpip_adapter_ip_info_t info;
+    info.ip.addr = static_cast<uint32_t>(esp1IP);
+    info.gw.addr = static_cast<uint32_t>(esp1IP);   // Gateway is the same as ESP1's IP
+    info.netmask.addr = static_cast<uint32_t>(NMask);
+    tcpip_adapter_set_ip_info(TCPIP_ADAPTER_IF_AP, &info);
+
+    // Set DHCP lease range
+    dhcps_lease_t lease;
+    lease.enable = true;
+    lease.start_ip.addr = static_cast<uint32_t>(startIP);
+    lease.end_ip.addr = static_cast<uint32_t>(endIP);
+    tcpip_adapter_dhcps_option(TCPIP_ADAPTER_OP_SET, TCPIP_ADAPTER_REQUESTED_IP_ADDRESS, &lease, sizeof(dhcps_lease_t));
+
+    // Restart DHCP server
+    tcpip_adapter_dhcps_start(TCPIP_ADAPTER_IF_AP);
 
     ///ARDUINO OTA
     ArduinoOTA.setHostname("mainOTA"); 
@@ -153,7 +195,8 @@ void serverSetup(AsyncWebServer &server) {
   server.on("/getWaterInfo", HTTP_GET, [](AsyncWebServerRequest *request) {
     pendingRequest = request;
   });
-
+  WebSerial.begin(&server);
+  WebSerial.msgCallback(recvMsg);
   server.begin();
 }
 

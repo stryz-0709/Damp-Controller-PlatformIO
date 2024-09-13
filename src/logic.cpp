@@ -41,11 +41,13 @@ void gateLogic(){
   gateCount++;
   // Opening and closing logic
   if (gateStatus == "FORCE_CLOSE"){
+    startUp = false;
     //TURN ON TOWER_LED WITHOUT GET_WATER_LED/REMOVE_WATER_LED
     sendLedInfo(3);
     closingGate();
   } 
   else if (gateStatus == "GET_WATER" || gateStatus == "REMOVE_WATER"){
+    startUp = false;
     //1 TO TURN ON GET_WATER_LED, 2 TO TURN ON REMOVE_WATER_LED;
     sendLedInfo((gateStatus == "GET_WATER")? 1 : 2);
     openingGate(gateStatus);

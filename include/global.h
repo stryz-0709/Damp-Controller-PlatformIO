@@ -23,6 +23,7 @@
 #include <AsyncTCP.h>
 #include <ESPAsyncWebServer.h>
 #include <esp_now.h>
+#include <WebSerial.h>
 #include <Preferences.h>
 
 
@@ -78,19 +79,18 @@
 #define MOTOR_TRIG 32
 #define MOTOR 16
 
-extern AsyncWebServer server;
+extern AsyncWebServer serverEsp1, serverEsp2;
 extern Preferences preferences;
 
 typedef struct struct_message {
   int value;
 } struct_message;
 
-extern struct_message dataEsp1;
-extern struct_message dataEsp2;
+extern struct_message dataEsp1, dataEsp2;
 
 extern esp_now_peer_info_t peerInfo;
 
-extern int IN_PINS[7], OUT_PINS[7], ESP1_OUTPUTS[4], ESP2_OUTPUTS[4], SWITCHES[5];
+extern int IN_PINS[7], OUT_PINS[7], ESP1_OUTPUTS[4], ESP2_OUTPUTS[4], SWITCHES[2], BUTTONS[3];
 
 extern String gateStatus, gateMode, motorStatus, errorCode, pendingMessage;
 
@@ -98,21 +98,21 @@ extern String gateStatus, gateMode, motorStatus, errorCode, pendingMessage;
 extern uint8_t esp1Mac[];
 extern uint8_t esp2Mac[];
 
-extern IPAddress esp1IP, esp2IP, NMask;
+extern IPAddress esp1IP, esp2IP, NMask, startIP, endIP;
 extern String ssid;
 
 extern AsyncWebServerRequest *pendingRequest;
 
 extern unsigned long prevWaterMillis, prevWater2Millis, prevGateMillis, 
-  motorStandbyMillis, motorTrigMillis, prevButtonMillis, sendMobileMillis, towerToggleMillis;
+  motorStandbyMillis, motorTrigMillis, prevButtonMillis, sendMobileMillis, startUpMillis;
 
 extern const long buttonInterval, waterInterval,
   countInterval, gateInterval, motorTrigInterval,
-  motorOnInterval, standByInterval, botInterval, sendMobileInterval, towerToggleInterval; 
+  motorOnInterval, standByInterval, startUpInterval, botInterval, sendMobileInterval; 
 
 extern unsigned long motorDelayMillis, prevBotMillis;
 
-extern bool closingPhase, outToIn, inToOut;
+extern bool closingPhase, startUp, outToIn, inToOut;
 
 extern int outMeasured, inMeasured, h1, h2, top_val, bot_val;
 

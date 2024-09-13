@@ -1,14 +1,15 @@
 
 #include "global.h"
 
-AsyncWebServer server(80);
+AsyncWebServer serverEsp1(80);
 
 void setup() {
   Serial.begin(115200);
   esp1PinSetup();
   eepromSetup();
   apEspSetup(esp2Mac, WIFI_AP_STA);
-  serverSetup(server);
+  serverSetup(serverEsp1);
+  startUpMillis = millis();
 }
 
 void loop() {
@@ -51,6 +52,13 @@ void loop() {
   //Force closing////
   if (closingPhase){
     if ((currentMillis - prevBotMillis) >= botInterval) {
+      forceStop();
+    }
+  }
+
+  //Startup//
+  if (startUp){
+    if ((currentMillis - startUpMillis) >= startUpInterval) {
       forceStop();
     }
   }

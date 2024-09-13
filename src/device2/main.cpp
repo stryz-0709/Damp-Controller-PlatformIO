@@ -1,12 +1,14 @@
 
 #include "global.h"
 
-AsyncWebServer server(80);
+AsyncWebServer serverEsp2(80);
 
 void setup() {
   Serial.begin(115200);
   esp2PinSetup();
   apEspSetup(esp1Mac, WIFI_STA);
+  WebSerial.begin(&serverEsp2);
+  serverEsp2.begin();
 }
 
 void loop() {

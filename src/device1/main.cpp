@@ -15,6 +15,35 @@ void setup() {
 void loop() {
   ArduinoOTA.handle();
   unsigned long currentMillis = millis();
+
+  //Force closing////
+  if (closingPhase){
+    if ((currentMillis - prevBotMillis) >= botInterval) {
+      forceStop();
+    }
+  }
+
+  //Startup//
+  if (startUp){
+    if ((currentMillis - startUpMillis) >= startUpInterval) {
+      forceStop();
+    }
+  }
+
+  if (motorStatus == "STANDBY"){
+    if ((currentMillis - motorStandbyMillis) >= standByInterval) 
+      deactivateMotor();
+  }
+  else if (motorStatus == "TRIGGERED"){
+    if ((currentMillis - motorTrigMillis) >= motorTrigInterval) 
+      triggerMotor();
+  }
+
+  if ((currentMillis - sendMobileMillis) >= sendMobileInterval){
+    sendMobileMillis = currentMillis;
+    sendToAndroid();
+  }
+
   //// Water level////
   if (currentMillis - prevWaterMillis >= waterInterval){
     prevWaterMillis = currentMillis;
@@ -49,31 +78,7 @@ void loop() {
   }
   /////////////////
 
-  //Force closing////
-  if (closingPhase){
-    if ((currentMillis - prevBotMillis) >= botInterval) {
-      forceStop();
-    }
-  }
+  if (turnOff) sendLedInfo(0);
 
-  //Startup//
-  if (startUp){
-    if ((currentMillis - startUpMillis) >= startUpInterval) {
-      forceStop();
-    }
-  }
-
-  if (motorStatus == "STANDBY"){
-    if ((currentMillis - motorStandbyMillis) >= standByInterval) 
-      deactivateMotor();
-  }
-  else if (motorStatus == "TRIGGERED"){
-    if ((currentMillis - motorTrigMillis) >= motorTrigInterval) 
-      triggerMotor();
-  }
-
-  if ((currentMillis - sendMobileMillis) >= sendMobileInterval){
-    sendMobileMillis = currentMillis;
-    sendToAndroid();
-  }
+  
 }

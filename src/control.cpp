@@ -48,7 +48,6 @@ void openingGate(String mode) {
   ///Force close in MANUAL mode///
   if ((gateStatus == "GET_WATER" && inLevel >= outLevel) || (gateStatus == "REMOVE_WATER" && inLevel <= outLevel)){
     gateStatus = "FORCE_CLOSE";
-    closingGate();
     return;
   }
 
@@ -66,11 +65,13 @@ void openingGate(String mode) {
 
 void forceStop(){
   Serial.println("VALVE_DOWN STOPPED");
+  WebSerial.println("VALVE_DOWN STOPPED");
   gateStatus = "STOPPED";
   isBot = 1;
   updateEeprom(3, isBot);
   digitalWrite(VALVE_DOWN, HIGH);
   closingPhase = false;
   activateStandby();
+  turnOff = true;
   sendLedInfo(0); //TURN OFF START_RELAY
 }

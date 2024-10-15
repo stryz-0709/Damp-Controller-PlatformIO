@@ -41,9 +41,9 @@ void gateLogic(){
   gateCount++;
   // Opening and closing logic
   if (gateStatus == "FORCE_CLOSE"){
-    startUp = false;
+    // startUp = false;
     //TURN ON TOWER_LED WITHOUT GET_WATER_LED/REMOVE_WATER_LED
-    sendLedInfo(3);
+    // sendLedInfo(3);
     closingGate();
   } 
   else if (gateStatus == "GET_WATER" || gateStatus == "REMOVE_WATER"){
@@ -53,11 +53,11 @@ void gateLogic(){
     openingGate(gateStatus);
   } 
   else if (gateStatus == "STOPPED"){
-    if (motorStatus == "ACTIVE") activateStandby();
-    else{
-      digitalWrite(MOTOR_TRIG, HIGH);
-      digitalWrite(MOTOR, HIGH);
-    } 
+    // if (motorStatus == "ACTIVE") activateStandby();
+    // else{
+    //   digitalWrite(MOTOR_TRIG, HIGH);
+    //   digitalWrite(MOTOR, HIGH);
+    // } 
     digitalWrite(VALVE_UP, HIGH);
     digitalWrite(VALVE_DOWN, HIGH);
   }

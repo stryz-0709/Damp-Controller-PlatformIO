@@ -9,6 +9,7 @@ void setup() {
   apEspSetup(esp1Mac, WIFI_STA);
   WebSerial.begin(&serverEsp2);
   serverEsp2.begin();
+  WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0);
 }
 
 void loop() {
@@ -18,5 +19,10 @@ void loop() {
   if (currentMillis - prevWater2Millis >= waterInterval){
     prevWater2Millis = currentMillis;
     readWaterLevel(IN_PINS, inSum, water2Count, inLevel, outMeasured, gateMode, debugOut, false);
+  }
+
+  if (turnOff){
+    digitalWrite(START_BUTTON, HIGH);     
+    digitalWrite(TOWER_LED, HIGH);   
   }
 }

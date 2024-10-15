@@ -15,7 +15,7 @@ void eepromSetup(){
     preferences.begin("storage", false);
     h1 = preferences.getInt("h1", 1);
     h2 = preferences.getInt("h2", 1);
-    isBot = preferences.getInt("isBot", 0);
+    isBot = preferences.getInt("isBot", 1);
 }
 
 

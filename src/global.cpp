@@ -52,7 +52,6 @@ unsigned long prevWaterMillis = 0;
 unsigned long prevWater2Millis = 0;
 unsigned long prevGateMillis = 0;
 unsigned long motorStandbyMillis = 0;
-unsigned long towerToggleMillis = 0;
 
 unsigned long prevButtonMillis = 0;
 const long buttonInterval = 200;
@@ -83,6 +82,7 @@ bool closingPhase = false;
 bool outToIn = false;
 bool inToOut = false;
 bool startUp = true;
+bool turnOff = false;
 
 int outMeasured = 0;
 int inMeasured = 0;
@@ -105,7 +105,7 @@ int outSum = 0;
 int outLevel = 0;
 int inSum = 0;
 int inLevel = 0;
-int isBot = 0;
+int isBot = 1;
 int debugOut = 0;
 int debugIn = 0;
 
@@ -123,4 +123,9 @@ String errorCode = "";
 //ESP32 MAC Address///
 ///Change with different ESP32s///
 uint8_t esp1Mac[] = { 0x10, 0x06, 0x1C, 0x85, 0x81, 0x28 };
-uint8_t esp2Mac[] = { 0x58, 0xBF, 0x25, 0x8C, 0x2B, 0xF4 };
+// uint8_t esp2Mac[] = { 0x58, 0xBF, 0x25, 0x8C, 0x2B, 0xF4 };
+// uint8_t esp2Mac[] = { 0x9C, 0x9C, 0x1F, 0xD5, 0x66, 0x50 };
+uint8_t esp2Mac[] = { 0x10, 0x06, 0x1C, 0x87, 0x68, 0x10 };
+//9c:9c:1f:d5:66:50
+
+// 10:06:1c:87:68:10

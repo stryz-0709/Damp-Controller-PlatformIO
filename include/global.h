@@ -19,6 +19,8 @@
 #include <ArduinoJson.h>
 #include <ArduinoHttpClient.h>
 #include <WiFi.h>
+#include "soc/soc.h"
+#include "soc/rtc_cntl_reg.h"
 #include <ArduinoOTA.h>
 #include <AsyncTCP.h>
 #include <ESPAsyncWebServer.h>
@@ -55,11 +57,11 @@
 #define IN7 17
 
 ///GATE SWITCHES - PULLED_DOWN///
-#define GATE_TOP 14
+#define GATE_TOP 14 
 #define GATE_BOTTOM 13
 
 ///VALVES - OUTPUT///
-#define VALVE_UP 26
+#define VALVE_UP 16
 #define VALVE_DOWN 33
 
 ///MANUAL SWITCH - PULLED_UP///
@@ -77,7 +79,7 @@
 
 ///MOTOR - OUTPUT//
 #define MOTOR_TRIG 32
-#define MOTOR 16
+#define MOTOR 26
 
 extern AsyncWebServer serverEsp1, serverEsp2;
 extern Preferences preferences;
@@ -104,15 +106,15 @@ extern String ssid;
 extern AsyncWebServerRequest *pendingRequest;
 
 extern unsigned long prevWaterMillis, prevWater2Millis, prevGateMillis, 
-  motorStandbyMillis, motorTrigMillis, prevButtonMillis, sendMobileMillis, startUpMillis;
+  motorStandbyMillis, motorTrigMillis, prevButtonMillis, sendMobileMillis, startUpMillis,
+  motorDelayMillis, prevBotMillis;
 
 extern const long buttonInterval, waterInterval,
   countInterval, gateInterval, motorTrigInterval,
   motorOnInterval, standByInterval, startUpInterval, botInterval, sendMobileInterval; 
 
-extern unsigned long motorDelayMillis, prevBotMillis;
 
-extern bool closingPhase, startUp, outToIn, inToOut;
+extern bool closingPhase, startUp, outToIn, inToOut, turnOff;
 
 extern int outMeasured, inMeasured, h1, h2, top_val, bot_val;
 

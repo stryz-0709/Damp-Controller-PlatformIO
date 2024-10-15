@@ -29,13 +29,14 @@ void OnEsp2DataRecv(const uint8_t *mac_addr, const uint8_t *incomingData, int le
   Serial.println(dataEsp2.value);
 
   //ON if value == 1, else OFF
-  digitalWrite(GET_WATER_LED, dataEsp2.value == 1 ? HIGH : LOW);  
+  if (dataEsp2.value == 1) digitalWrite(GET_WATER_LED, HIGH);  
 
   //ON if value == 2, else OFF
-  digitalWrite(REMOVE_WATER_LED, dataEsp2.value == 2 ? HIGH : LOW); 
+  else if (dataEsp2.value == 2) digitalWrite(REMOVE_WATER_LED, HIGH); 
 
-  //RELAYS, TURN OFF if value == 4, else ACTIVE
-  digitalWrite(START_BUTTON, dataEsp2.value == 0 ? HIGH : LOW);     
+  //RELAYS, TURN OFF if value == 0, else ACTIVE
+  // else if (dataEsp2.value == 0) 
+  turnOff = dataEsp2.value == 0;
 
 }
 
@@ -55,6 +56,8 @@ void sendLedInfo(int led){
   if (result == ESP_OK){
     Serial.print("Sent value: ");
     Serial.println(led);
+    WebSerial.print("Sent value: ");
+    WebSerial.println(led);
   }
   else {}
 }
@@ -92,6 +95,26 @@ void recvMsg(uint8_t *data, size_t len){
       }
       else if (parameter == "h2"){
         h2 = value.toInt();
+      }
+      else if (parameter == "in"){
+        debugIn = value.toInt();
+        gateMode = "DEBUG";
+      }
+      else if (parameter == "out"){
+        debugOut = value.toInt();
+        gateMode = "DEBUG";
+      }
+      else if (parameter == "top"){
+        top_val = value.toInt();
+        gateMode = "DEBUG";
+      }
+      else if (parameter == "bot"){
+        bot_val = value.toInt();
+        gateMode = "DEBUG";
+      }
+      else if (parameter == "button"){
+        if (value.toInt() == 1) gateStatus = "GET_WATER";
+        else if (value.toInt() == 2) gateStatus = "REMOVE_WATER";
       }
     }
   }

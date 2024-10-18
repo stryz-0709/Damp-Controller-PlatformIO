@@ -58,7 +58,7 @@ void openingGate(String mode) {
     digitalWrite(VALVE_UP, LOW);
     motorStatus = "ACTIVE";
     isBot = 0;
-    updateEeprom(3, isBot);
+    updateEeprom("isBot", isBot, "");
   }
   else if (motorStatus == "ACTIVE") digitalWrite(VALVE_UP, LOW);
 }
@@ -68,10 +68,9 @@ void forceStop(){
   WebSerial.println("VALVE_DOWN STOPPED");
   gateStatus = "STOPPED";
   isBot = 1;
-  updateEeprom(3, isBot);
+  updateEeprom("isBot", isBot, "");
   digitalWrite(VALVE_DOWN, HIGH);
   closingPhase = false;
   activateStandby();
   turnOff = true;
-  sendLedInfo(0); //TURN OFF START_RELAY
 }

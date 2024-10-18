@@ -5,10 +5,11 @@ AsyncWebServer serverEsp1(80);
 
 void setup() {
   Serial.begin(115200);
-  esp1PinSetup();
+  pinSetup();
   eepromSetup();
-  apEspSetup(esp2Mac, WIFI_AP_STA);
+  apEspSetup();
   serverSetup(serverEsp1);
+  WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0);
   startUpMillis = millis();
 }
 
@@ -47,7 +48,7 @@ void loop() {
   //// Water level////
   if (currentMillis - prevWaterMillis >= waterInterval){
     prevWaterMillis = currentMillis;
-    readWaterLevel(OUT_PINS, outSum, water1Count, outLevel, outMeasured, gateMode, debugOut, true);
+    readWaterLevel();
   }
 
   if (inMeasured && outMeasured){
@@ -78,7 +79,14 @@ void loop() {
   }
   /////////////////
 
-  if (turnOff) sendLedInfo(0);
+  if (builtInButton) resetEEPROM();
+
+  if (turnOff){
+    digitalWrite(START_BUTTON, HIGH);     
+    digitalWrite(TOWER_LED, HIGH);   
+  }
+
+  
 
   
 }

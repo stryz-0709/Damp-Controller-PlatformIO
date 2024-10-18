@@ -17,19 +17,9 @@
 
 #include "global.h"
 
-void OnEsp1DataRecv(const uint8_t *mac_addr, const uint8_t *incomingData, int len);
-void OnEsp2DataRecv(const uint8_t *mac_addr, const uint8_t *incomingData, int len);
-
-void OnEsp1DataSent(const uint8_t *mac_addr, esp_now_send_status_t status);
-void OnEsp2DataSent(const uint8_t *mac_addr, esp_now_send_status_t status);
-
-void sendLedInfo(int led);
-
-void sendWaterInfo(int value);
-
 void sendToAndroid();
 
-void apEspSetup(uint8_t* peerMac, wifi_mode_t mode) ;
+void apEspSetup() ;
 
 void serverSetup(AsyncWebServer &server);
 

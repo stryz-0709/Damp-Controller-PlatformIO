@@ -14,7 +14,7 @@
 
 #include "global.h"
 
-void readWaterLevel(const int* pins, int& sum, int& count, int& level, int& measured, const String& mode, int debugValue, bool isOut);
+void readWaterLevel();
 
 
 #endif /* INC_WATER_H_ */

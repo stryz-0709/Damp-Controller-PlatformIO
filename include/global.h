@@ -40,72 +40,68 @@
 
 
 ///WATER SENSOR PINS - PULLED_UP///
-#define OUT1 23
-#define OUT2 22
-#define OUT3 21
-#define OUT4 19
-#define OUT5 18
-#define OUT6 5
-#define OUT7 17
+#define OUT1 14
+#define OUT2 13
+#define OUT3 12
+#define OUT4 11
+#define OUT5 10
+#define OUT6 9
+#define OUT7 8
 //////////
-#define IN1 23
-#define IN2 22
-#define IN3 21
-#define IN4 19
-#define IN5 18
-#define IN6 5
-#define IN7 17
+#define IN1 18
+#define IN2 17
+#define IN3 16
+#define IN4 15
+#define IN5 7
+#define IN6 6
+#define IN7 5
 
 ///GATE SWITCHES - PULLED_DOWN///
-#define GATE_TOP 14 
-#define GATE_BOTTOM 13
+#define GATE_TOP 2
+#define GATE_BOTTOM 1
 
 ///VALVES - OUTPUT///
-#define VALVE_UP 16
-#define VALVE_DOWN 33
+#define VALVE_UP 41
+#define VALVE_DOWN 42
 
 ///MANUAL SWITCH - PULLED_UP///
-#define END_BUTTON 27
-#define GET_WATER 4
-#define REMOVE_WATER 15
+#define END_BUTTON 40
+#define START_BUTTON 39
+
+#define GET_WATER 37
+#define REMOVE_WATER 38
 
 ///LED///
-#define GET_WATER_LED 4
-#define REMOVE_WATER_LED 16
+#define GET_WATER_LED 35
+#define REMOVE_WATER_LED 36
 
-#define TOWER_LED 13
-
-#define START_BUTTON 15
+#define TOWER_LED 4
 
 ///MOTOR - OUTPUT//
-#define MOTOR_TRIG 32
-#define MOTOR 26
+#define MOTOR_TRIG 21
+#define MOTOR 47
 
-extern AsyncWebServer serverEsp1, serverEsp2;
+#define ESP_LED 48
+#define ESP_BUTTON 45
+
+extern AsyncWebServer serverEsp1;
 extern Preferences preferences;
 
 typedef struct struct_message {
   int value;
 } struct_message;
 
-extern struct_message dataEsp1, dataEsp2;
-
-extern esp_now_peer_info_t peerInfo;
-
-extern int IN_PINS[7], OUT_PINS[7], ESP1_OUTPUTS[4], ESP2_OUTPUTS[4], SWITCHES[2], BUTTONS[3];
+extern int IN_PINS[7], OUT_PINS[7], ESP_OUTPUTS[8], SWITCHES[2], BUTTONS[3];
 
 extern String gateStatus, gateMode, motorStatus, errorCode, pendingMessage;
 
-//ESP32 MAC Address///
-extern uint8_t esp1Mac[];
-extern uint8_t esp2Mac[];
-
-extern IPAddress esp1IP, esp2IP, NMask, startIP, endIP;
+extern IPAddress esp1IP, NMask, startIP, endIP;
 extern String ssid;
+extern String wifiPass, adminPass;
 
 extern AsyncWebServerRequest *pendingRequest;
 
-extern unsigned long prevWaterMillis, prevWater2Millis, prevGateMillis, 
+extern unsigned long prevWaterMillis, prevGateMillis, 
   motorStandbyMillis, motorTrigMillis, prevButtonMillis, sendMobileMillis, startUpMillis,
   motorDelayMillis, prevBotMillis;
 
@@ -118,11 +114,11 @@ extern bool closingPhase, startUp, outToIn, inToOut, turnOff;
 
 extern int outMeasured, inMeasured, h1, h2, top_val, bot_val;
 
-extern int water1Count, water2Count, gateCount;
+extern int waterCount, gateCount;
 
 extern int outSum, outLevel, inSum, inLevel, isBot, debugOut, debugIn;
 
-extern int endButton, getWater, removeWater, prevEndButton, prevGetWater, prevRemoveWater;
+extern int endButton, getWater, removeWater, prevEndButton, prevGetWater, prevRemoveWater, builtInButton;
 
 
 #endif /* INC_GLOBAL_H_ */

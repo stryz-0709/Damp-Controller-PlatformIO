@@ -16,7 +16,9 @@
 
 void eepromSetup();
 
-void updateEeprom(int type, int value);
+void resetEEPROM();
+
+void updateEeprom(String type, int value, String stringValue);
 
 
 #endif

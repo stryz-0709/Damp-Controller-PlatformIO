@@ -12,33 +12,44 @@
 #include "water.h"
 
 //Read water level
-void readWaterLevel(const int* pins, int& sum, int& count, int& level, int& measured, const String& mode, int debugValue, bool isOut) {
-  int binary = 0;
-  int res = 0;
+void readWaterLevel() {
+  int inBinary = 0;
+  int outBinary = 0;
+  int inRes = 0;
+  int outRes = 0;
   int base = 1;
   for (int i = 0; i < 7; i++) {
-    if (digitalRead(pins[i])) res = i + 1;
-    binary += digitalRead(pins[i]) * base;
+    if (digitalRead(IN_PINS[i])) inRes = i + 1;
+    if (digitalRead(OUT_PINS[i])) inRes = i + 1;
+    inBinary += digitalRead(IN_PINS[i]) * base;
+    outBinary += digitalRead(OUT_PINS[i]) * base;
     base *= 10;
   }
 
-  Serial.print(binary);
+  Serial.print("In: ");
+  Serial.print(inBinary);
   Serial.print(" -> ");
-  Serial.println(res);
+  Serial.print(inRes);
+  Serial.print(" , Out: ");
+  Serial.print(outBinary);
+  Serial.print(" -> ");
+  Serial.println(outRes);
   
-  sum += res;
-  count++;
+  inSum += inRes;
+  outSum += outRes;
+  waterCount++;
 
-  if (count == countInterval) {
-    level = round(sum / (float)countInterval);
+  if (waterCount == countInterval) {
+    inLevel = round(inSum / (float)countInterval);
+    outLevel = round(outSum / (float)countInterval);
     
-    if (isOut) { 
-      level = (mode == "DEBUG") ? debugValue : level;  // For out water level
-      measured = 1;
-    } 
-    else sendWaterInfo(level);  // For in water level
+    inLevel = (gateMode == "DEBUG") ? debugIn : inLevel; 
+    outLevel = (gateMode == "DEBUG") ? debugOut : outLevel; 
+    inMeasured = 1;
+    outMeasured = 1;
 
-    count = 0;
-    sum = 0;
+    waterCount = 0;
+    inSum = 0;
+    outSum = 0;
   }
 }

@@ -13,21 +13,20 @@
 #include "print.h"
 
 ///Pin setup///
-void esp1PinSetup() {
+void pinSetup() {
   for (int i = 0; i < 2; i++) pinMode(SWITCHES[i], INPUT_PULLDOWN);
   for (int i = 0; i < 3; i++) pinMode(BUTTONS[i], INPUT_PULLUP);
+  
+  for (int i = 0; i < 8; i++) pinMode(ESP_OUTPUTS[i], OUTPUT);
+
+  //TURN OFF ALL RELAYS (ACTIVE = LOW)
+  for (int i = 0; i < 4; i++) digitalWrite(ESP_OUTPUTS[i], HIGH);
+
   for (int i = 0; i < 7; i++) pinMode(OUT_PINS[i], INPUT_PULLDOWN);
-  for (int i = 0; i < 4; i++){
-    pinMode(ESP1_OUTPUTS[i], OUTPUT);
-
-    //TURN OFF ALL RELAYS (ACTIVE = LOW)
-    digitalWrite(ESP1_OUTPUTS[i], HIGH);
-  }
-}
-
-void esp2PinSetup(){
   for (int i = 0; i < 7; i++) pinMode(IN_PINS[i], INPUT_PULLDOWN);
-  for (int i = 0; i < 4; i++) pinMode(ESP2_OUTPUTS[i], OUTPUT);
+
+  pinMode(ESP_BUTTON, INPUT_PULLDOWN);
+  
   //TURN OFF ALL LEDS
   digitalWrite(GET_WATER_LED, LOW);
   digitalWrite(REMOVE_WATER_LED, LOW);
@@ -35,7 +34,10 @@ void esp2PinSetup(){
   //RELAYS (ACTIVE = LOW)
   digitalWrite(START_BUTTON, LOW);
   digitalWrite(TOWER_LED, LOW);
+
+  digitalWrite(LED_BUILTIN, LOW);
 }
+
 
 bool isNumber(String payload) {
   for (int i = 0; i < payload.length(); i++) {
@@ -53,6 +55,8 @@ void backgroundCheck(){
 
 //Read input//
 bool readInputs(){
+  builtInButton = digitalRead(ESP_BUTTON);
+  
   prevEndButton = endButton;
   prevGetWater = getWater;
   prevRemoveWater = removeWater;
@@ -74,15 +78,21 @@ void decodePendingMessage(String pendingMessage){
   } 
   else if (isNumber(pendingMessage)) {
     int value = pendingMessage.toInt();
-    if (value >= 30) debugOut = value % 30;
-    else if (value >= 20) debugIn = value % 20;
+    if (value >= 30){
+      debugOut = value % 30;
+      updateEeprom("debugOut", debugOut, "");
+    }
+    else if (value >= 20){
+      debugIn = value % 20;
+      updateEeprom("debugOut", debugOut, "");
+    }
     else if (value >= 10){
       h2 = value % 10;
-      updateEeprom(2, h2);
+      updateEeprom("h2", h2, "");
     } 
     else{
       h1 = value;
-      updateEeprom(1, h1);
+      updateEeprom("h1", h1, "");
     } 
   }
   else if (pendingMessage == "GET_WATER"){

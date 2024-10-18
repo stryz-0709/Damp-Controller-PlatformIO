@@ -15,9 +15,7 @@
 
 #include "global.h"
 
-void esp1PinSetup();
-
-void esp2PinSetup();
+void pinSetup();
 
 bool isNumber(String payload);
 

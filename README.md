@@ -1,4 +1,4 @@
-# ESP32_DAMP_CONTROLLER
+# Damp-Controller-PlatformIO
 
 ## Introduction
 Damp controller using ESP32 to measure water heights and connect to a mobile device to control via Access Point.

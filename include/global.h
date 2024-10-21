@@ -7,6 +7,7 @@
  *  Version 3: Added support for ArduinoOTA
  *  Version 3.1: Added global variables for toggling tower led
  *  Version 3.2: Revert toggling function
+ *  Version 5: Support ESP32-S3
  *  Author: Minh Tri
  */
 

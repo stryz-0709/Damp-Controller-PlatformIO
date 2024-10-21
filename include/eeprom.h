@@ -2,8 +2,9 @@
  * eeprom.h
  *
  *  Created on: Sep 9, 2024
- *  Last modified: Sep 9, 2024
+ *  Last modified: Oct 11, 2024
  *  Version 1: Init
+ *  Version 2: Added reset EEPROM values
  *  Author: Minh Tri
  */
 

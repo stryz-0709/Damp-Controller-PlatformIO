@@ -2,8 +2,9 @@
  * eeprom.cpp
  *
  *  Created on: Sep 9, 2024
- *  Last modified: Sep 9, 2024
+ *  Last modified: Oct 11, 2024
  *  Version 1: Init
+ *  Version 2: Added reset EEPROM values
  *  Author: Minh Tri
  */
 
@@ -32,6 +33,10 @@ void resetEEPROM() {
     preferences.putInt("debugOut", -1);
     preferences.putString("wifiPass", "dapsontien");
     preferences.putString("adminPass", "quanlydap");
+
+    gateMode = "MANUAL";
+    gateStatus = "FORCE_CLOSE";
+    motorStatus = "OFF";
 
     preferences.end();
 

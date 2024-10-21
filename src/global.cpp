@@ -2,11 +2,12 @@
  * global.cpp
  *
 *  Created on: Aug 26, 2024
- *  Last modified: Sep 13, 2024
+ *  Last modified: Oct 11, 2024
  *  Version 2: Added EEPROM
  *  Version 3: Added support for ArduinoOTA
  *  Version 3.1: Added global variables for toggling tower led
  *  Version 3.2: Revert toggling function
+ *  Version 5: Support ESP32-S3
  *  Author: Minh Tri
  */
 

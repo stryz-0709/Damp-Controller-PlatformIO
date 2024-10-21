@@ -1,34 +1,26 @@
-# ESP32_DAMP_CONTROLLER
+# Damp-Controller-PlatformIO
 
 ## Introduction
 Damp controller using ESP32 to measure water heights and connect to a mobile device to control via Access Point.
 
 ## Guide
+### Setup new ESP32:
+Locate to global.cpp and change esp1IP, startIP, endIP, and ssid parameters according to the designated number of the ESP32.
+```
+IPAddress esp1IP(192, 168, 1, X);
+
+IPAddress startIP(192, 168, 1, X+1);
+IPAddress endIP(192, 168, 1, X*11);
+
+String ssid = "Cổng X";
+```
+
 ### Upload code: 
 ```
-pio run -e esp32dev1 -e esp32dev2 --target upload
+pio run -e esp32-s3 --target upload
 ```
 
-### Upload code via OTA:
-- Both:
+### Monitor on Terminal:
 ```
-./upload_ota.sh
-```
-- ESP1:
-```
-pio run -e esp32dev1 --target upload --upload-port 192.168.1.1
-```
-- ESP2:
-```
-pio run -e esp32dev1 --target upload --upload-port 192.168.1.2
-```
-
-### Monitor - Open 2 terminal windows:
-- ESP1: 
-```
-pio device monitor -e esp32dev1
-```
-- ESP2:
-```
-pio device monitor -e esp32dev2
+pio device monitor -e esp32-s3
 ```
